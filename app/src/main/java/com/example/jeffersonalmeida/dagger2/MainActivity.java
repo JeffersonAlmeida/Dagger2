@@ -1,18 +1,17 @@
 package com.example.jeffersonalmeida.dagger2;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.example.jeffersonalmeida.dagger2.modules.MyApp;
 
 import javax.inject.Inject;
 
-public class MainActivity extends Activity {
+import butterknife.ButterKnife;
+
+public class MainActivity extends AppCompatActivity {
 
     @Inject SharedPreferences sharedPreferences;
 
@@ -21,12 +20,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ( (MyApp) getApplication() ).getNetComponent().inject(this);
+        ButterKnife.bind(this);
 
-        sharedPreferences.edit().putString("a", "a").apply();
-        String string = sharedPreferences.getString("a", "default");
+        ((MyApp) getApplication()).getNetComponent().inject(this);
 
-        Log.d("string", string);
+        sharedPreferences.edit().putString("dagger", "Dagger works fine").apply();
+        String string = sharedPreferences.getString("dagger", "?");
+
+        TextView tv = (TextView) findViewById(R.id.textview);
+        tv.setText(string);
 
     }
 
