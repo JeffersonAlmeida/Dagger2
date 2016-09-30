@@ -1,14 +1,14 @@
-package com.example.jeffersonalmeida.dagger2.modules;
+package com.example.jeffersonalmeida.dagger2;
 
 import android.app.Application;
 
-import com.example.jeffersonalmeida.dagger2.DaggerNetComponent;
-import com.example.jeffersonalmeida.dagger2.NetComponent;
+import com.example.jeffersonalmeida.dagger2.components.DaggerNetComponent;
+import com.example.jeffersonalmeida.dagger2.components.NetComponent;
+import com.example.jeffersonalmeida.dagger2.modules.NetModule;
 
-/**
- * Created by jeffersonalmeida on 3/1/16.
- */
 public class MyApp extends Application {
+
+    private static MyApp application;
 
     private NetComponent netComponent;
 
@@ -21,6 +21,12 @@ public class MyApp extends Application {
                 .netModule(new NetModule(this))
                 .build();
 
+        application = this;
+
+    }
+
+    public static synchronized MyApp get(){
+        return application;
     }
 
     public NetComponent getNetComponent() {

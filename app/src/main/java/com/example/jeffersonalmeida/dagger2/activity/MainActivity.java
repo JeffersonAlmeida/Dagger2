@@ -1,11 +1,12 @@
-package com.example.jeffersonalmeida.dagger2;
+package com.example.jeffersonalmeida.dagger2.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.example.jeffersonalmeida.dagger2.modules.MyApp;
+import com.example.jeffersonalmeida.dagger2.MyApp;
+import com.example.jeffersonalmeida.dagger2.R;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        ((MyApp) getApplication()).getNetComponent().inject(this);
+        MyApp.get().getNetComponent().inject(this);
 
         sharedPreferences.edit().putString("dagger", "Dagger works fine").apply();
         String string = sharedPreferences.getString("dagger", "?");
